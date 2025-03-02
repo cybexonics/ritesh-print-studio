@@ -94,7 +94,7 @@ export default function Home() {
     async function fetchProducts() {
       try {
         const response = await fetch(
-          "https://ritesh-print-studio.vercel.app/products"
+          "https://ritesh-print-studio-server.vercel.app/products"
         );
         if (!response.ok) throw new Error("Failed to fetch products");
 
@@ -110,9 +110,6 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  if (loading)
-    return <p className="text-center mt-5 text-lg">Loading products...</p>;
-  if (error) return <p className="text-center mt-5 text-red-500">{error}</p>;
   return (
     <main className="min-h-screen pt-15">
       {/* Hero Section */}
@@ -259,7 +256,7 @@ export default function Home() {
             </span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product,index) => (
+            {products ? products.map((product,index) => (
               <div
                 key={index}
                 className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl"
@@ -284,7 +281,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            ))}
+            )) : (
+                {loding ?  <p className="text-center mt-5 text-lg">Loading products...</p> :""}
+                {error ?  <p className="text-center mt-5 text-lg">{error}</p> :""}
+            )}
           </div>
         </div>
       </section>

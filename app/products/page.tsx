@@ -24,17 +24,29 @@ export default function ProductsPage() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch(
-          "https://ritesh-print-studio-server.vercel.app/products"
-        );
+        const response = await fetch("https://ritesh-print-studio-server.vercel.app/products");
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
         const data: Product[] = await response.json();
         setProducts(data);
       } catch (err) {
-        setError("Error fetching products.");
-      } finally {
+        console.error("Fetch Error:", err);
+      
+        // Type assertion to check if err is an instance of Error
+        if (err instanceof Error) {
+          setError(`Error fetching products: ${err.message}`);
+        } else {
+          setError("An unknown error occurred while fetching products.");
+        }
+      }
+       finally {
         setLoading(false);
       }
     }
+    
 
     fetchProducts();
   }, []);

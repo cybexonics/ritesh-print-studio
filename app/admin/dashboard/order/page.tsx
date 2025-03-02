@@ -24,7 +24,7 @@ export default function AllOrdersPage() {
     async function fetchOrders() {
       try {
         const res = await fetch(
-          "http://localhost:1227/orders"
+          "https://ritesh-print-studio-server.vercel.app/orders"
         );
         if (!res.ok) throw new Error("Failed to fetch orders");
         const data = (await res.json()) as Order[];

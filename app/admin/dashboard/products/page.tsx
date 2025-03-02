@@ -23,7 +23,7 @@ export default function AllProductsPage() {
     async function fetchProducts() {
       try {
         const res = await fetch(
-          "https://ritesh-print-studio.vercel.app/products"
+          "https://ritesh-print-studio-server.vercel.app/products"
         );
         if (!res.ok) throw new Error("Failed to fetch products");
         const data = (await res.json()) as Product[]; // ✅ Cast response

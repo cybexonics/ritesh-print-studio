@@ -28,7 +28,7 @@ export function ProductUpdate({ id }: { id: string }) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:1227/products/${id}`);
+        const response = await fetch(`https://ritesh-print-studio-server.vercel.app/products/${id}`);
         if (!response.ok) throw new Error("Failed to fetch product");
 
         const product = await response.json();
@@ -91,7 +91,7 @@ export function ProductUpdate({ id }: { id: string }) {
   const handleUpdate = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:1227/products/${id}`, {
+      const response = await fetch(`https://ritesh-print-studio-server.vercel.app/products/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updateData),
@@ -315,7 +315,7 @@ export function ProductAdd() {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://ritesh-print-studio.vercel.app/products`,
+        `https://ritesh-print-studio-server.vercel.app/products`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

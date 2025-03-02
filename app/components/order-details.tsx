@@ -42,7 +42,7 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
   useEffect(() => {
     async function fetchOrderDetails() {
       try {
-        const res = await fetch(`http://localhost:1227/orders/${id}`);
+        const res = await fetch(`https://ritesh-print-studio-server.vercel.app/orders/${id}`);
         if (!res.ok) throw new Error("Failed to fetch order details");
         const data = await res.json();
         setOrder(data);

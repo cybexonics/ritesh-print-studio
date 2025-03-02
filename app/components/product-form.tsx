@@ -106,6 +106,23 @@ export function ProductUpdate({ id }: { id: string }) {
     }
   };
 
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`https://ritesh-print-studio-server.vercel.app/products/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(id),
+      });
+
+      if (!response.ok) throw new Error("Failed to update product");
+      alert("Product delete successfully!");
+    } catch (err) {
+      setError("Error deleteing product");
+    } finally {
+      setLoading(false);
+    }
+  };
   if (loading) return <p>Loading product...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 

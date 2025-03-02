@@ -42,7 +42,7 @@ export default function ProductsPage() {
 
   if (loading)
     return <p className="text-center mt-20 text-lg">Loading products...</p>;
-  if (error) return <p className="text-center mt-20 text-red-500">{error - JSON.stringify(products)}</p>;
+  if (error) return <p className="text-center mt-20 text-red-500">{`${error}`}-{JSON.stringify(products)}</p>;
   return (
     <div className="bg-white min-h-screen py-12 px-6 md:px-16 lg:px-24">
       {/* Adjusted margin-top and increased spacing below the heading */}

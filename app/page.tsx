@@ -111,6 +111,7 @@ export default function Home() {
   }, []);
 
   return (
+    
     <main className="min-h-screen pt-15">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white to-gray-50">
@@ -282,8 +283,10 @@ export default function Home() {
                 </div>
               </div>
             )) : (
+              <>
                 {loding ?  <p className="text-center mt-5 text-lg">Loading products...</p> :""}
                 {error ?  <p className="text-center mt-5 text-lg">{error}</p> :""}
+                </>
             )}
           </div>
         </div>

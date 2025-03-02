@@ -257,7 +257,7 @@ export default function Home() {
             </span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products ? products.map((product,index) => (
+            {products.map((product,index) => (
               <div
                 key={index}
                 className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl"
@@ -282,12 +282,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            )) : (
-              <>
-                {loading ?  <p className="text-center mt-5 text-lg">Loading products...</p> :""}
-                {error ?  <p className="text-center mt-5 text-lg">{error}</p> :""}
-                </>
-            )}
+            ))}
           </div>
         </div>
       </section>

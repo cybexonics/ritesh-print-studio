@@ -25,19 +25,18 @@ export default function ProductsPage() {
     async function fetchProducts() {
       try {
         console.log("Fetching from:", "https://ritesh-print-studio-server.vercel.app/products");
-    
-        const response = await fetch("https://ritesh-print-studio-server.vercel.app/products");
-    
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
-        }
-    
-        const data: Product[] = await response.json();
-        console.log("Fetched Data:", data);
-        setProducts(data);
+
+        fetch("https://ritesh-print-studio-server.vercel.app/products")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Success:", data)
+            setProducts(data)
+          })
+          .catch((err) => console.error("Error:", err));
+
       } catch (err) {
         console.error("Fetch Error:", err);
-    
+
         if (err instanceof Error) {
           setError(`Error fetching products: ${err.message}`);
         } else {
@@ -47,8 +46,8 @@ export default function ProductsPage() {
         setLoading(false);
       }
     }
-    
-    
+
+
 
     fetchProducts();
   }, []);
@@ -66,7 +65,7 @@ export default function ProductsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
           {products
             .sort((a, b) => b.category.localeCompare(a.category))
-            .map((product,index) => (
+            .map((product, index) => (
               <div
                 key={index}
                 className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl"

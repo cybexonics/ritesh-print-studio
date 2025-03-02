@@ -6,6 +6,7 @@ import Table from "@/app/components/ui/table";
 import Layout from "@/app/components/dashboardLayout";
 import { ProductAdd, ProductUpdate } from "@/app/components/product-form";
 import Modal from "@/app/components/ui/modal";
+import ProtectedRoute from "../../auth/ProtectedRoute";
 
 interface Product {
   _id: string;
@@ -22,14 +23,24 @@ export default function AllProductsPage() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await fetch(
-          "https://ritesh-print-studio-server.vercel.app/products"
-        );
-        if (!res.ok) throw new Error("Failed to fetch products");
-        const data = (await res.json()) as Product[]; // ✅ Cast response
-        setProducts(data);
+        console.log("Fetching from:", "https://ritesh-print-studio-server.vercel.app/products");
+
+        fetch("https://ritesh-print-studio-server.vercel.app/products")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Success:", data)
+            setProducts(data)
+          })
+          .catch((err) => console.error("Error:", err));
+
       } catch (err) {
-        setError("Error found");
+        console.error("Fetch Error:", err);
+
+        if (err instanceof Error) {
+          setError(`Error fetching products: ${err.message}`);
+        } else {
+          setError("Unknown error occurred while fetching products.");
+        }
       } finally {
         setLoading(false);
       }
@@ -41,13 +52,17 @@ export default function AllProductsPage() {
   if (loading)
     return (
       <Layout>
-        <p className="text-center mt-5">Loading products...</p>
+        <ProtectedRoute>
+          <p className="text-center mt-20">Loading products...</p>
+        </ProtectedRoute>
       </Layout>
     );
   if (error)
     return (
       <Layout>
-        <p className="text-center mt-5 text-red-500">{error}</p>
+        <ProtectedRoute>
+          <p className="text-center mt-20 text-red-500">{error} {JSON.stringify(products)}</p>
+        </ProtectedRoute>
       </Layout>
     );
 

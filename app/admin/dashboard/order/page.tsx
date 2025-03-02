@@ -23,14 +23,24 @@ export default function AllOrdersPage() {
   useEffect(() => {
     async function fetchOrders() {
       try {
-        const res = await fetch(
-          "https://ritesh-print-studio-server.vercel.app/orders"
-        );
-        if (!res.ok) throw new Error("Failed to fetch orders");
-        const data = (await res.json()) as Order[];
-        setOrders(data);
+        console.log("Fetching from:", "https://ritesh-print-studio-server.vercel.app/orders");
+
+        fetch("https://ritesh-print-studio-server.vercel.app/orders")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Success:", data)
+            setOrders(data)
+          })
+          .catch((err) => console.error("Error:", err));
+
       } catch (err) {
-        setError("Error fetching orders");
+        console.error("Fetch Error:", err);
+
+        if (err instanceof Error) {
+          setError(`Error fetching products: ${err.message}`);
+        } else {
+          setError("Unknown error occurred while fetching products.");
+        }
       } finally {
         setLoading(false);
       }

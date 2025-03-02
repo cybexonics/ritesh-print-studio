@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import Modal from "./ui/modal";
-import { RadioGroup, RadioGroupItem } from "@/app/components/ui/radio-group";
-import { Label } from "@/app/components/ui/label";
 
 export function ProductUpdate({ id }: { id: string }) {
   const [updateData, setUpdateData] = useState({
@@ -253,7 +251,7 @@ export function ProductUpdate({ id }: { id: string }) {
           {/* Delete Modal */}
           <Modal title="Delete">
             Are you sure you want to delete this product?
-            <Button className="mt-2">Confirm</Button>
+            <Button className="mt-2" onClick={()=>handleDelete()}>Confirm</Button>
           </Modal>
         </div>
       </div>

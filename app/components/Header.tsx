@@ -17,7 +17,7 @@ export default function Header() {
               <ShoppingBag className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-              FASHION STORE
+              RITESH PRINT STUDIO
             </span>
           </Link>
 

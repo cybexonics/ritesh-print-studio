@@ -284,7 +284,7 @@ export default function Home() {
               </div>
             )) : (
               <>
-                {loding ?  <p className="text-center mt-5 text-lg">Loading products...</p> :""}
+                {loading ?  <p className="text-center mt-5 text-lg">Loading products...</p> :""}
                 {error ?  <p className="text-center mt-5 text-lg">{error}</p> :""}
                 </>
             )}

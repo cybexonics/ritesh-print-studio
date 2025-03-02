@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 
   useEffect(() => {
     const token = localStorage.getItem("token"); // Get token from localStorage
-    setIsAuthenticated(token); // Convert to boolean
+    setIsAuthenticated(!!token); // Convert to boolean
 
     if (!token) {
       router.push("/admin/auth/login");

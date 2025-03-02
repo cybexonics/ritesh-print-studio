@@ -407,13 +407,6 @@ export default function Home() {
                 <p className="text-sm text-gray-500">Get help anytime</p>
               </div>
             </div>
-            <div className="flex items-center justify-center">
-              <ArrowLeft className="w-8 h-8 text-blue-500 mr-4" />
-              <div>
-                <h3 className="font-semibold">Easy Returns</h3>
-                <p className="text-sm text-gray-500">30-day return policy</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>

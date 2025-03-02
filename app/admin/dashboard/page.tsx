@@ -44,8 +44,17 @@ export default function Dashboard() {
     }, []);
   
     if (loading)
-      return <p className="text-center mt-5 text-lg">Loading products...</p>;
-    if (error) return <p className="text-center mt-5 text-red-500">{error}</p>;
+      return (
+        <Layout>
+          <p className="text-center mt-5">Loading products...</p>
+        </Layout>
+      );
+    if (error)
+      return (
+        <Layout>
+          <p className="text-center mt-5 text-red-500">{error} {JSON.stringify(products)}</p>
+        </Layout>
+      );
   return (
     <Layout>
       <div>

@@ -40,7 +40,7 @@ export default function CheckoutPage() {
 
     try {
       const response = await fetch(
-        "https://ritesh-print-studio.vercel.app/orders",
+        "https://ritesh-print-studio-server.vercel.app/orders",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Script';
+  src: url('/fonts/dancing-script.woff2') format('woff2');
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.font-script {
+  font-family: 'Script', cursive;
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Add hover effect for images */
+.hover-zoom {
+  transition: transform 0.3s ease;
+}
+
+.hover-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Add gradient overlay */
+.gradient-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+}
+
+.container-margin {
+  width: 100%;
+  max-width: 1450px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+

@@ -5,7 +5,7 @@ import { Button } from "../components/ui/button";
 import { useState, useEffect } from "react";
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
   price: number;
   description: string;
@@ -83,7 +83,7 @@ export default function ProductsPage() {
                     ${product.price}
                   </p>
                   <div className="flex justify-between items-center">
-                    <Link href={`/products/${product.id}`}>
+                    <Link href={`/products/${product._id}`}>
                       <Button variant="outline">View Details</Button>
                     </Link>
                     <Button>Add to Cart</Button>

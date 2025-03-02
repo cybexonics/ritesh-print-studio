@@ -11,8 +11,8 @@ interface Order {
   customerName: string;
   totalAmount: number;
   status: string;
-  firstName:string;
-  lastName:string;
+  firstName: string;
+  lastName: string;
 }
 
 export default function AllOrdersPage() {
@@ -39,18 +39,18 @@ export default function AllOrdersPage() {
     fetchOrders();
   }, []);
 
-  if (loading)
-    return (
-      <Layout>
-        <p className="text-center mt-5">Loading products...</p>
-      </Layout>
-    );
-  if (error)
-    return (
-      <Layout>
-        <p className="text-center mt-5 text-red-500">{error}</p>
-      </Layout>
-    );
+  // if (loading)
+  //   return (
+  //     <Layout>
+  //       <p className="text-center mt-5">Loading products...</p>
+  //     </Layout>
+  //   );
+  // if (error)
+  //   return (
+  //     <Layout>
+  //       <p className="text-center mt-5 text-red-500">{error}</p>
+  //     </Layout>
+  //   );
 
   return (
     <Layout>
@@ -63,14 +63,14 @@ export default function AllOrdersPage() {
             </button>
           </Link>
         </div>
-        <Table
+        {error ? (<p className="text-center mt-5 text-red-500">{error}</p>) : <Table
           title="View"
           data={orders.map((order) => ({
             ...order,
             modalContent: <OrderDetails id={order._id} />,
           }))}
-          columns={["_id","firstName","lastName", "totalAmount", "modalContent"]}
-        />
+          columns={["_id", "firstName", "lastName", "totalAmount", "modalContent"]}
+        />}
       </div>
     </Layout>
   );

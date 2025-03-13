@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import Modal from "./ui/modal";
 
+
 export function ProductUpdate({ id }: { id: string }) {
   const [updateData, setUpdateData] = useState({
     name: "",
@@ -62,11 +63,15 @@ export function ProductUpdate({ id }: { id: string }) {
 
   // Add Items (Size, Image, Feature)
   const handleAdd = (key: "images" | "features" | "sizes", value: string) => {
-    if (value.trim() === "") return;
-    setUpdateData((prev) => ({
-      ...prev,
-      [key]: [...prev[key], value],
-    }));
+    if(updateData.images.length === 1){
+      console.log("ok")
+    }else{
+      if (value.trim() === "") return;
+      setUpdateData((prev) => ({
+        ...prev,
+        [key]: [...prev[key], value],
+      }));
+    }
 
     // Clear input field
     if (key === "images") setNewImage("");
@@ -259,243 +264,234 @@ export function ProductUpdate({ id }: { id: string }) {
   );
 }
 
-export function ProductAdd() {
-  const [newProduct, setNewProduct] = useState({
+
+interface ProductFormProps {
+  id?: string
+  defaultCategory?: string
+  onSuccess?: () => void
+}
+
+interface Product {
+  _id?: string
+  name: string
+  price: number | string
+  description: string
+  features: string[]
+  images: string[]
+  category: string
+  customizable: boolean
+  sizes?: string[]
+}
+
+export function ProductAdd({ defaultCategory, onSuccess }: ProductFormProps) {
+  const [formData, setFormData] = useState<Omit<Product, "_id">>({
     name: "",
     price: "",
     description: "",
-    images: [] as string[],
+    features: [],
+    images: [""],
+    category: defaultCategory || "",
     customizable: false,
-    category: "",
-    features: [] as string[],
-    sizes: [] as string[],
-  });
+    sizes: [],
+  })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState(false)
+  const [categories, setCategories] = useState<{ name: string; slug: string }[]>([])
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const [tempInput, setTempInput] = useState({
-    size: "",
-    image: "",
-    feature: "",
-  });
-
-  // Handle Input Changes
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setNewProduct((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleCustomizableChange = () => {
-    setNewProduct((prev) => ({
-      ...prev,
-      customizable: !prev.customizable,
-    }));
-  };
-  // Handle Temp Input Change
-  const handleTempInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTempInput({ ...tempInput, [e.target.name]: e.target.value });
-  };
-
-  // Add Item to Array
-  const handleArrayAdd = (
-    key: "images" | "features" | "sizes",
-    value: string
-  ) => {
-    if (value.trim() !== "") {
-      setNewProduct((prev) => ({
-        ...prev,
-        [key]: [...prev[key], value],
-      }));
-      setTempInput({ ...tempInput, [key]: "" }); // Clear input after adding
-    }
-  };
-
-  // Remove Item from Array
-  const handleArrayRemove = (
-    key: "images" | "features" | "sizes",
-    index: number
-  ) => {
-    setNewProduct((prev) => ({
-      ...prev,
-      [key]: prev[key].filter((_, i) => i !== index),
-    }));
-  };
-
-  // Submit New Product
-  const handleAddProduct = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `https://ritesh-print-studio-server.vercel.app/products`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newProduct),
+  useEffect(() => {
+    // Fetch categories for the dropdown
+    async function fetchCategories() {
+      try {
+        const response = await fetch("https://ritesh-print-studio-server.vercel.app/categories")
+        if (response.ok) {
+          const data = await response.json()
+          setCategories(data)
         }
-      );
-
-      if (!response.ok) throw new Error("Failed to add product");
-      alert("Product added successfully!");
-    } catch (err) {
-      setError("Error adding product");
-    } finally {
-      setLoading(false);
+      } catch (error) {
+        console.error("Error fetching categories:", error)
+      }
     }
-  };
+
+    fetchCategories()
+  }, [])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target
+
+    if (type === "checkbox") {
+      const checkbox = e.target as HTMLInputElement
+      setFormData({ ...formData, [name]: checkbox.checked })
+    } else if (name === "features" || name === "sizes") {
+      setFormData({ ...formData, [name]: value.split(",").map((item) => item.trim()) })
+    } else if (name === "images") {
+      setFormData({ ...formData, [name]: [value] })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
+    setSuccess(false)
+
+    try {
+      const response = await fetch("https://ritesh-print-studio-server.vercel.app/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to add product")
+      }
+
+      setSuccess(true)
+      setFormData({
+        name: "",
+        price: "",
+        description: "",
+        features: [],
+        images: [""],
+        category: defaultCategory || "",
+        customizable: false,
+        sizes: [],
+      })
+
+      if (onSuccess) {
+        onSuccess()
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError("An unknown error occurred")
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <>
-      <div className="flex flex-row gap-4 w-full">
-        {/* Input Fields */}
-        <div className="flex-1 flex flex-col gap-3">
-          <Input
-            placeholder="Product Name"
-            name="name"
-            value={newProduct.name}
-            onChange={handleInput}
-          />
-          <Input
-            placeholder="Product Price"
-            name="price"
-            value={newProduct.price}
-            onChange={handleInput}
-          />
-          <Input
-            placeholder="Product Description"
-            name="description"
-            value={newProduct.description}
-            onChange={handleInput}
-          />
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {error && <div className="bg-red-100 text-red-700 p-3 rounded">{error}</div>}
+      {success && <div className="bg-green-100 text-green-700 p-3 rounded">Product added successfully!</div>}
 
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              name="customizable"
-              checked={newProduct.customizable}
-              onChange={handleInput}
-            />
-            Customizable
-          </label>
-          {/* Add Image */}
-          <div className="flex gap-3">
-            <Input
-              type="text"
-              placeholder="Add Image URL"
-              name="image"
-              value={tempInput.image}
-              onChange={handleTempInputChange}
-            />
-            <Button onClick={() => handleArrayAdd("images", tempInput.image)}>
-              Add
-            </Button>
-          </div>
-
-          {/* Add Sizes */}
-          <div className="flex gap-3">
-            <Input
-              type="text"
-              placeholder="Add Size"
-              name="size"
-              value={tempInput.size}
-              onChange={handleTempInputChange}
-            />
-            <Button onClick={() => handleArrayAdd("sizes", tempInput.size)}>
-              Add
-            </Button>
-          </div>
-
-          {/* Add Features */}
-          <div className="flex gap-3">
-            <Input
-              type="text"
-              placeholder="Add Feature"
-              name="feature"
-              value={tempInput.feature}
-              onChange={handleTempInputChange}
-            />
-            <Button
-              onClick={() => handleArrayAdd("features", tempInput.feature)}
-            >
-              Add
-            </Button>
-          </div>
-        </div>
-
-        {/* Display Selected Data */}
-        <div className="flex-1 flex flex-col gap-3">
-          {/* Sizes */}
-          <h3 className="text-lg font-semibold">Sizes:</h3>
-          <div className="flex flex-wrap gap-2">
-            {newProduct.sizes.map((size, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 border px-3 py-1 rounded"
-              >
-                {size}
-                <Button
-                  onClick={() => handleArrayRemove("sizes", index)}
-                  size="icon"
-                >
-                  ✖
-                </Button>
-              </div>
-            ))}
-          </div>
-
-          {/* Images */}
-          <h3 className="text-lg font-semibold">Images:</h3>
-          <div className="flex flex-wrap gap-2">
-            {newProduct.images.map((image, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 border px-3 py-1 rounded"
-              >
-                {image}
-                <Button
-                  onClick={() => handleArrayRemove("images", index)}
-                  size="icon"
-                >
-                  ✖
-                </Button>
-              </div>
-            ))}
-          </div>
-
-          {/* Features */}
-          <h3 className="text-lg font-semibold">Features:</h3>
-          <div className="flex flex-wrap gap-2">
-            {newProduct.features.map((feature, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 border px-3 py-1 rounded"
-              >
-                {feature}
-                <Button
-                  onClick={() => handleArrayRemove("features", index)}
-                  size="icon"
-                >
-                  ✖
-                </Button>
-              </div>
-            ))}
-          </div>
-
-          {/* Submit Button */}
-          <Button
-            onClick={handleAddProduct}
-            disabled={loading}
-            variant="outline"
-          >
-            {loading ? "Adding..." : "Add Product"}
-          </Button>
-
-          {error && <p className="text-red-500">{error}</p>}
-        </div>
+      <div>
+        <label className="block mb-1">Product Name</label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border rounded"
+        />
       </div>
-    </>
-  );
+
+      <div>
+        <label className="block mb-1">Price</label>
+        <input
+          type="number"
+          name="price"
+          value={formData.price}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border rounded"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-1">Description</label>
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border rounded"
+          rows={3}
+        />
+      </div>
+
+      {/* <div>
+        <label className="block mb-1">Category</label>
+        <select
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border rounded"
+        >
+          <option value="">Select a category</option>
+          {categories.map((category) => (
+            <option key={category.slug} value={category.slug}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+      </div> */}
+
+      <div>
+        <label className="block mb-1">Features (comma separated)</label>
+        <input
+          type="text"
+          name="features"
+          value={formData.features.join(", ")}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          placeholder="Feature 1, Feature 2, Feature 3"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-1">Sizes (comma separated)</label>
+        <input
+          type="text"
+          name="sizes"
+          value={formData.sizes?.join(", ") || ""}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          placeholder="S, M, L, XL"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-1">Image URL</label>
+        <input
+          type="text"
+          name="images"
+          value={formData.images[0]}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border rounded"
+        />
+      </div>
+
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          id="customizable"
+          name="customizable"
+          checked={formData.customizable}
+          onChange={handleChange}
+          className="mr-2"
+        />
+        <label htmlFor="customizable">Customizable</label>
+      </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-blue-300"
+      >
+        {loading ? "Adding..." : "Add Product"}
+      </button>
+    </form>
+  )
 }
+
+

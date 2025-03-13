@@ -18,7 +18,7 @@ export default function Login() {
     }
   
     // Mock authentication (Replace with real API call)
-    if (email === "admin@e.com" && password === "123") {
+    if (email === "admin@094.com" && password === "8380075733") {
       localStorage.setItem("token", "your-secure-token"); // Store token
       router.push("/admin/dashboard"); // Redirect on success
     } else {
@@ -64,10 +64,6 @@ export default function Login() {
             Login
           </button>
         </form>
-
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Don't have an account? <a href="/register" className="text-blue-600">Sign up</a>
-        </p>
       </div>
     </div>
   );

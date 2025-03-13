@@ -1,28 +1,5 @@
-"use client";
-
-import { useState } from "react";
-import Link from "next/link";
-import {
-  Dumbbell,
-  Home,
-  Dumbbell as DumbbellIcon,
-  Calendar,
-  Users,
-  Award,
-  Settings,
-  Package,
-  ShoppingCart,
-} from "lucide-react";
-import ProtectedRoute from "../admin/auth/ProtectedRoute";
-
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 p-6 mt-14 bg-gray-100">{children}</main>
-    </div>
-  );
-}
+import type React from "react"
+import { Home, Package, ShoppingCart, Tag, Users, Settings } from "lucide-react"
 
 const menuItems = [
   {
@@ -41,6 +18,11 @@ const menuItems = [
     href: "/admin/dashboard/order",
   },
   {
+    icon: <Tag className="w-6 h-6" />,
+    text: "Categories",
+    href: "/admin/dashboard/categories",
+  },
+  {
     icon: <Users className="w-6 h-6" />,
     text: "Other",
     href: "/community",
@@ -50,46 +32,37 @@ const menuItems = [
     text: "Settings",
     href: "/settings",
   },
-];
+]
 
-export function Sidebar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <ProtectedRoute>
-      <div
-        className={`flex ${isSidebarOpen ? "block" : "hidden"
-          } md:block inset-y-0 left-0 top-0 w-64 bg-gray-800 text-white py-7 px-4 space-y-6 z-10`}
-      >
-        {/* Sidebar Logo */}
-        <Link
-          href="/"
-          className="flex items-center space-x-2 text-white text-xl font-extrabold"
-        >
-          <Dumbbell className="w-8 h-8" />
-          <span>FitTrack Pro</span>
-        </Link>
-        {/* Sidebar Menu */}
-        <nav className="space-y-2">
-          {menuItems.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              className="flex items-center py-2.5 px-4 rounded-md text-white hover:bg-gray-700 hover:text-white transition"
-            >
-              {item.icon}
-              <span className="ml-2">{item.text}</span>
-            </Link>
-          ))}
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-800 text-white">
+        <div className="p-4">
+          <h1 className="text-2xl font-semibold">Admin Panel</h1>
+        </div>
+        <nav>
+          <ul>
+            {menuItems.map((item, index) => (
+              <li key={index} className="p-4 hover:bg-gray-700">
+                <a href={item.href} className="flex items-center">
+                  {item.icon}
+                  <span className="ml-2">{item.text}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
-        {/* Mobile Toggle Button */}
-        <button
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="md:hidden absolute top-4 left-4 text-white focus:outline-none"
-        >
-          <span className="text-xl">☰</span>
-        </button>
       </div>
-    </ProtectedRoute>
-  );
+
+      {/* Main Content */}
+      <div className="flex-1 p-4 mt-5">{children}</div>
+    </div>
+  )
 }
+

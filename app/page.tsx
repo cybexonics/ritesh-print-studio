@@ -210,8 +210,8 @@ export default function Home() {
               <div className="absolute top-10 right-10 z-20 bg-white rounded-full w-32 h-32 flex flex-col items-center justify-center shadow-xl animate-float">
                 <div className="text-xs text-blue-600"> 14TH APR </div>
                 <div className="text-3xl font-bold">Offer</div>
-                <div className="text-xl font-black text-blue-600">
-                  Comming soon
+                <div className="text-xl font-black text-center text-blue-600">
+                  Coming soon
                 </div>
               </div>
             </div>

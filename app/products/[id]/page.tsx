@@ -177,7 +177,7 @@ export default function ProductPage() {
 
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
                 <p className="text-2xl font-bold text-gray-900 mb-4">
-                  ${typeof product.price === "number" ? product.price.toFixed(2) : Number(product.price).toFixed(2)}
+                  ₹{typeof product.price === "number" ? product.price.toFixed(2) : Number(product.price).toFixed(2)}
                 </p>
 
                 <div className="prose prose-gray max-w-none mb-6">

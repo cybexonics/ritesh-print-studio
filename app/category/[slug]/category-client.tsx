@@ -128,7 +128,7 @@ export function CategoryClient({ slug }: CategoryClientProps) {
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
               <p className="text-gray-600 mb-4">
-                ${typeof product.price === "number" ? product.price.toFixed(2) : Number(product.price).toFixed(2)}
+                ₹{typeof product.price === "number" ? product.price.toFixed(2) : Number(product.price).toFixed(2)}
               </p>
               <div className="flex justify-between items-center">
                 <Link href={`/products/${product._id}`}>

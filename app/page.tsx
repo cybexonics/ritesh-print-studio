@@ -208,10 +208,10 @@ export default function Home() {
               />
               {/* Discount Badge */}
               <div className="absolute top-10 right-10 z-20 bg-white rounded-full w-32 h-32 flex flex-col items-center justify-center shadow-xl animate-float">
-                <div className="text-xs text-blue-600">15TH AUG</div>
-                <div className="text-3xl font-bold">SAVE</div>
-                <div className="text-4xl font-black text-blue-600">
-                  50<span className="text-2xl">%</span>
+                <div className="text-xs text-blue-600"> 14TH APR </div>
+                <div className="text-3xl font-bold">Offer</div>
+                <div className="text-xl font-black text-blue-600">
+                  Comming soon
                 </div>
               </div>
             </div>
@@ -287,7 +287,7 @@ export default function Home() {
             <h3 className="text-lg font-semibold text-gray-800 group-hover:text-[#34A9DC] transition-colors">
               {item.name}
             </h3>
-            <p className="text-base font-bold text-[#2DD4BF] mt-1">{₹ item.price}</p>
+            <p className="text-base font-bold text-[#2DD4BF] mt-1">₹{item.price}</p>
             <div className="mt-4">
               <Link href={`/products`}>
                 <Button
@@ -341,7 +341,7 @@ export default function Home() {
               {product.name}
             </h2>
             <p className="text-base font-bold text-[#2DD4BF] mt-1">
-              ${typeof product.price === "number" ? product.price.toFixed(2) : Number(product.price).toFixed(2)}
+              ₹{typeof product.price === "number" ? product.price.toFixed(2) : Number(product.price).toFixed(2)}
             </p>
             <div className="mt-4">
               <Link href={`/products/${product._id}`}>

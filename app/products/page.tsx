@@ -68,7 +68,7 @@ export default function ProductsPage() {
               </div>
               <div className="p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2 text-gray-900">{product.name}</h3>
-                <p className="text-2xl font-bold text-blue-600">${product.price}</p>
+                <p className="text-2xl font-bold text-blue-600">₹{product.price}</p>
                 <div className="mt-4">
                   <Link href={`/products/${product._id}`}>
                     <Button variant="outline" className="px-5 py-2 border-2 border-blue-500 text-blue-500 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition-all duration-300 rounded-full shadow-md font-medium">

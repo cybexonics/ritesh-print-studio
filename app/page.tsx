@@ -12,29 +12,33 @@ const newArrivals = [
     id: 1,
     name: "Custmized T shirt",
     price: 299,
-    image: "/shirt.jpg?height=400&width=300",
+    image: "https://res.cloudinary.com/dxd3jzvmq/image/upload/v1742129164/xobbtepowcffsyvtm7pu.jpg?height=400&width=300",
     tag: "New",
+    path:"/category/t-shirts",
   },
   {
     id: 2,
     name: "Custmized Cup",
     price: 299,
-    image: "/jacket.jpg?height=400&width=300",
+    image: "/https://res.cloudinary.com/dxd3jzvmq/image/upload/v1742135074/kciioafuruhryp3q4vds.jpg?height=400&width=300",
     tag: "Trending",
+    path:"/category/mugs",
   },
   {
     id: 3,
     name: "Custmized Pillow",
     price: 449,
-    image: "/Sneakers.jpg?height=400&width=300",
+    image: "/https://res.cloudinary.com/dxd3jzvmq/image/upload/v1742135073/rqhzltmlcwl9r1m8e7rx.webp?height=400&width=300",
     tag: "Best Seller",
+    path:"/category/pillows",
   },
   {
     id: 4,
     name: "Custmized Bottles ",
     price: 299,
-    image: "/Pants.jpg?height=400&width=300",
+    image: "/https://res.cloudinary.com/dxd3jzvmq/image/upload/v1742135073/ru8elvsgwyvzckblahlf.webp?height=400&width=300",
     tag: "New",
+    path:"/category/water-bottles",
   },
 ]
 
@@ -42,24 +46,24 @@ const newArrivals = [
 const reviews = [
   {
     id: 1,
-    name: "John D.",
+    name: "Dinesh Shinde(Shinde Classes)",
     rating: 5,
     comment: "Exceptional quality and style. The fit is perfect!",
     image: "/placeholder.svg?height=100&width=100",
   },
   {
     id: 2,
-    name: "Michael R.",
-    rating: 5,
+    name: "Aayush Panchal",
+    rating: 4,
     comment: "Great collection and amazing customer service.",
-    image: "/placeholder.svg?height=100&width=100",
+    
   },
   {
     id: 3,
-    name: "David S.",
-    rating: 5,
-    comment: "The clothes are fantastic and delivery was quick.",
-    image: "/placeholder.svg?height=100&width=100",
+    name: "Vishvjit.",
+    rating: 4,
+    comment: "The clothes are fantastic.",
+    
   },
 ]
 
@@ -289,7 +293,7 @@ export default function Home() {
             </h3>
             <p className="text-base font-bold text-[#2DD4BF] mt-1">₹{item.price}</p>
             <div className="mt-4">
-              <Link href={`/products`}>
+              <Link href={item.path}>
                 <Button
                   variant="outline"
                   className="w-full py-2.5 rounded-lg bg-gradient-to-r from-[#34A9DC] to-[#2DD4BF] text-white font-medium shadow-lg hover:shadow-cyan-400/50 transition-all hover:scale-105 duration-300"
@@ -409,7 +413,7 @@ export default function Home() {
       <div className="flex justify-end">
         <div className="relative w-[550px] h-[550px] rounded-xl overflow-hidden bg-gray-700">
           <img
-            src="/t-shirt.jpg?height=550&width=550"
+            src="https://res.cloudinary.com/dxd3jzvmq/image/upload/v1742136026/pwixgdkloeeiupspg63j.jpg?height=550&width=550"
             alt="Custom Holi T-Shirt"
             className="object-cover w-full h-full"
           />

@@ -287,7 +287,7 @@ export default function Home() {
             <h3 className="text-lg font-semibold text-gray-800 group-hover:text-[#34A9DC] transition-colors">
               {item.name}
             </h3>
-            <p className="text-base font-bold text-[#2DD4BF] mt-1">${item.price}</p>
+            <p className="text-base font-bold text-[#2DD4BF] mt-1">{₹ item.price}</p>
             <div className="mt-4">
               <Link href={`/products`}>
                 <Button

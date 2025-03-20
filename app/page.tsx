@@ -366,66 +366,73 @@ export default function Home() {
 
 
       {/* Special Offers Section */}
-      <section className="py-20 bg-gray-900 text-white">
-  <div className="container-margin">
-    <div className="grid md:grid-cols-2 gap-28 items-center">
-      {/* Content Section (Wider Content) */}
-      <div className="max-w-3xl w-full">
-        <h2 className="text-5xl font-bold mb-8 leading-tight">
-          Holi Special Offer! Custom T-Shirts
-          <span className="block text-blue-400 mt-3 text-5xl">
-            at Just ₹199! 🎨✨
-          </span>
-        </h2>
-        <p className="text-gray-400 text-lg mb-10 leading-relaxed">
-          Celebrate the festival of colors with your unique style! Get customized T-shirts and add a personal touch
-          to your Holi celebrations.
-        </p>
+      <section className="py-10 md:py-16 lg:py-20 bg-gray-900 text-white">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-28 items-center">
+          {/* Content Section */}
+          <div className="max-w-3xl w-full">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 lg:mb-8 leading-tight">
+              Holi Special Offer! Custom T-Shirts
+              <span className="block text-blue-400 mt-2 md:mt-3 text-3xl md:text-4xl lg:text-5xl">
+                at Just ₹199! 🎨✨
+              </span>
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-8 lg:mb-10 leading-relaxed">
+              Celebrate the festival of colors with your unique style! Get customized T-shirts and add a personal touch
+              to your Holi celebrations.
+            </p>
 
-        <div className="grid grid-cols-2 gap-6 mb-10">
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-sm font-bold">✓</div>
-            <span className="text-gray-300 text-lg">Premium Quality Fabric</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8 lg:mb-10">
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-400 flex items-center justify-center text-xs md:text-sm font-bold">
+                  ✓
+                </div>
+                <span className="text-gray-300 text-base md:text-lg">Premium Quality Fabric</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-400 flex items-center justify-center text-xs md:text-sm font-bold">
+                  ✓
+                </div>
+                <span className="text-gray-300 text-base md:text-lg">Vibrant & Long-Lasting Prints</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-400 flex items-center justify-center text-xs md:text-sm font-bold">
+                  ✓
+                </div>
+                <span className="text-gray-300 text-base md:text-lg">Your Own Custom Design</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-400 flex items-center justify-center text-xs md:text-sm font-bold">
+                  ✓
+                </div>
+                <span className="text-gray-300 text-base md:text-lg">Perfect for Group & Family Parties</span>
+              </div>
+            </div>
+
+            <a
+              href="/shop"
+              className="inline-block bg-blue-400 text-white px-8 py-3 md:px-12 md:py-4 text-base md:text-lg rounded-full hover:bg-blue-500 transition-colors"
+            >
+              Shop Now
+            </a>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-sm font-bold">✓</div>
-            <span className="text-gray-300 text-lg">Vibrant & Long-Lasting Prints</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-sm font-bold">✓</div>
-            <span className="text-gray-300 text-lg">Your Own Custom Design</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-sm font-bold">✓</div>
-            <span className="text-gray-300 text-lg">Perfect for Group & Family Parties</span>
+
+          {/* Image Section */}
+          <div className="flex justify-center md:justify-end mt-8 md:mt-0">
+            <div className="relative w-full max-w-[350px] md:max-w-[450px] lg:max-w-[550px] aspect-square rounded-xl overflow-hidden bg-gray-700">
+              <img
+                src="https://res.cloudinary.com/dxd3jzvmq/image/upload/v1742136026/pwixgdkloeeiupspg63j.jpg"
+                alt="Custom Holi T-Shirt"
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-blue-400 text-white text-base md:text-lg font-bold px-3 py-1 md:px-4 md:py-2 rounded-full">
+                ₹199 Only!
+              </div>
+            </div>
           </div>
         </div>
-
-        <a
-          href="/shop"
-          className="inline-block bg-blue-400 text-white px-12 py-4 text-lg rounded-full hover:bg-blue-500 transition-colors"
-        >
-          Shop Now
-        </a>
       </div>
-
-      {/* Image Section (Right Side & Even Larger) */}
-      <div className="flex justify-end">
-        <div className="relative w-[550px] h-[550px] rounded-xl overflow-hidden bg-gray-700">
-          <img
-            src="https://res.cloudinary.com/dxd3jzvmq/image/upload/v1742136026/pwixgdkloeeiupspg63j.jpg?height=550&width=550"
-            alt="Custom Holi T-Shirt"
-            className="object-cover w-full h-full"
-          />
-          <div className="absolute top-4 right-4 bg-blue-400 text-white text-lg font-bold px-4 py-2 rounded-full">
-            ₹199 Only!
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+    </section>
 
       {/* Customer Reviews Section */}
       <section className="py-20 bg-gray-50">

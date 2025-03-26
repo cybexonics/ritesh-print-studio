@@ -4,8 +4,10 @@ import ProtectedRoute from "@/app/admin/auth/ProtectedRoute"
 import { EditProductClient } from "./edit-product-client"
 
 // This is a server component
-export default function EditProductPage({ params }: { params: { id: string } }) {
-  // Server components can directly use params
+export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
+  // Await the params object before accessing its properties
+  const { id } = await params
+
   return (
     <Layout>
       <ProtectedRoute>
@@ -16,7 +18,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
             </div>
           }
         >
-          <EditProductClient id={params.id} />
+          <EditProductClient id={id} />
         </Suspense>
       </ProtectedRoute>
     </Layout>

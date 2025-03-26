@@ -4,8 +4,14 @@ import ProtectedRoute from "@/app/admin/auth/ProtectedRoute"
 import { AddProductClient } from "./add-product-client"
 
 // This is a server component
-export default function AddProductPage({ searchParams }: { searchParams: { category?: string } }) {
-  // Server components can directly use searchParams
+export default async function AddProductPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>
+}) {
+  // Await searchParams before accessing its properties
+  const { category } = await searchParams
+
   return (
     <Layout>
       <ProtectedRoute>
@@ -16,7 +22,7 @@ export default function AddProductPage({ searchParams }: { searchParams: { categ
             </div>
           }
         >
-          <AddProductClient category={searchParams.category} />
+          <AddProductClient category={category} />
         </Suspense>
       </ProtectedRoute>
     </Layout>

@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Layout from "@/app/components/dashboardLayout"
-import { ProductAdd, ProductUpdate } from "@/app/components/product-form"
-import Modal from "@/app/components/ui/modal"
 import ProtectedRoute from "../../auth/ProtectedRoute"
-import { Trash2 } from "lucide-react"
+import { Trash2, Edit, Plus } from "lucide-react"
 import { Button } from "@/app/components/ui/button"
 
 interface Product {
@@ -91,17 +89,19 @@ export default function AllProductsPage() {
     return (
       <Layout>
         <ProtectedRoute>
-          <p className="text-center mt-20">Loading products...</p>
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            <p className="ml-3">Loading products...</p>
+          </div>
         </ProtectedRoute>
       </Layout>
     )
+
   if (error)
     return (
       <Layout>
         <ProtectedRoute>
-          <p className="text-center mt-20 text-red-500">
-            {error} {JSON.stringify(products)}
-          </p>
+          <p className="text-center mt-20 text-red-500">{error}</p>
         </ProtectedRoute>
       </Layout>
     )
@@ -111,9 +111,12 @@ export default function AllProductsPage() {
       <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold text-gray-800">All Products</h1>
-          <Modal title="Add Product">
-            <ProductAdd />
-          </Modal>
+          <Link href="/admin/dashboard/products/add">
+            <Button className="flex items-center gap-2">
+              <Plus size={16} />
+              Add New Product
+            </Button>
+          </Link>
         </div>
 
         {/* Category filter buttons */}
@@ -179,11 +182,18 @@ export default function AllProductsPage() {
                   </td>
                   <td className="py-2 px-4 border-b">
                     <div className="flex space-x-2">
-                      <Modal title="Update Product">
-                        <ProductUpdate id={product._id} />
-                      </Modal>
-                      <Button variant="destructive" size="sm" onClick={() => handleDeleteProduct(product._id)}>
-                        <Trash2 className="h-4 w-4 mr-1" /> Delete
+                      <Link href={`/admin/dashboard/products/edit/${product._id}`}>
+                        <Button variant="outline" size="sm" className="flex items-center gap-1">
+                          <Edit className="h-4 w-4" /> Edit
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDeleteProduct(product._id)}
+                        className="flex items-center gap-1"
+                      >
+                        <Trash2 className="h-4 w-4" /> Delete
                       </Button>
                     </div>
                   </td>

@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Pencil, Trash2 } from "lucide-react"
-import Modal from "@/app/components/ui/modal"
-import { ProductAdd } from "@/app/components/product-form"
+import { Pencil, Trash2, Plus } from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/app/components/ui/button"
 
 interface Product {
   _id: string
@@ -95,11 +95,6 @@ export function CategoryProductsClient({ category }: CategoryProductsClientProps
     }
   }
 
-  // Custom ProductAdd component that pre-selects the category
-  const CategoryProductAdd = () => {
-    return <ProductAdd defaultCategory={category} onSuccess={fetchProducts} />
-  }
-
   // Show a consistent loading state during initial client-side render
   if (!mounted) {
     return (
@@ -122,15 +117,19 @@ export function CategoryProductsClient({ category }: CategoryProductsClientProps
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Manage {categoryName} Products</h1>
         <div className="flex space-x-4">
-          <Modal title={`Add ${categoryName} Product`}>
-            <CategoryProductAdd />
-          </Modal>
-          <button
+          <Link href={`/admin/dashboard/products/add?category=${category}`}>
+            <Button className="flex items-center gap-2">
+              <Plus size={16} />
+              Add {categoryName} Product
+            </Button>
+          </Link>
+          <Button
             onClick={() => router.push("/admin/dashboard/products")}
-            className="bg-gray-500 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-600"
+            variant="outline"
+            className="bg-gray-500 text-white hover:bg-gray-600"
           >
             Back to All Products
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -164,18 +163,18 @@ export function CategoryProductsClient({ category }: CategoryProductsClientProps
                 </p>
                 <p className="text-sm text-gray-500 mb-4 line-clamp-2">{product.description}</p>
                 <div className="flex space-x-2">
-                  <button
-                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 flex items-center"
-                    onClick={() => router.push(`/admin/dashboard/products/edit/${product._id}`)}
-                  >
-                    <Pencil className="w-4 h-4 mr-1" /> Edit
-                  </button>
-                  <button
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 flex items-center"
+                  <Link href={`/admin/dashboard/products/edit/${product._id}`}>
+                    <Button variant="outline" className="flex items-center gap-1">
+                      <Pencil className="w-4 h-4" /> Edit
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="destructive"
                     onClick={() => product._id && handleDeleteProduct(product._id)}
+                    className="flex items-center gap-1"
                   >
-                    <Trash2 className="w-4 h-4 mr-1" /> Delete
-                  </button>
+                    <Trash2 className="w-4 h-4" /> Delete
+                  </Button>
                 </div>
               </div>
             </div>

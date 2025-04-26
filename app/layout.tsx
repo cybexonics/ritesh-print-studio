@@ -2,6 +2,7 @@
 import './globals.css'
 import Header from './components/Header'
 import { CartProvider } from './components/CartContext'
+import Script from "next/script";
 
 // export const metadata = {
 //   title: 'Fashion Store - Explosive Sale',
@@ -20,6 +21,7 @@ export default function RootLayout({
           <Header />
           {children}
         </CartProvider>
+        <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="beforeInteractive" />
       </body>
     </html>
   )

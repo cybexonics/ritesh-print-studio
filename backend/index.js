@@ -191,6 +191,22 @@ app.post("/orders", async (req, res) => {
   }
 })
 
+app.post("/verify-payment", (req, res) => {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+  const body = razorpay_order_id + "|" + razorpay_payment_id;
+  const expectedSignature = crypto
+    .createHmac("sha256", "YOUR_KEY_SECRET")
+    .update(body)
+    .digest("hex");
+
+  if (expectedSignature === razorpay_signature) {
+    res.send({ success: true, message: "Payment verified" });
+  } else {
+    res.status(400).send({ success: false, message: "Signature mismatch" });
+  }
+});
+
 
 // Read all orders
 app.get("/orders", async (req, res) => {

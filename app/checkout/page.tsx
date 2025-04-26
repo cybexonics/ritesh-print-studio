@@ -53,7 +53,7 @@ export default function CheckoutPage() {
       }
   
       const options = {
-        key: "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay key ID
+        key: "rzp_test_ACwzTcmjQbeIzd", // Replace with your Razorpay key ID
         amount: data.razorpayAmount,
         currency: "INR",
         name: "Print Studio",
@@ -76,7 +76,7 @@ export default function CheckoutPage() {
   
           if (verifyData.success) {
             alert("Payment Successful!");
-            router.push("/order/success");
+            router.push("/order/success/");
           } else {
             alert("Payment verification failed.");
             router.push("/order/failed");

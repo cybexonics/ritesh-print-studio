@@ -2,6 +2,13 @@ const express = require("express")
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb")
 const cors = require("cors")
 const path = require("path")
+const Razorpay = require("razorpay")
+
+const razorpayInstance = new Razorpay({
+  key_id: "rzp_test_ACwzTcmjQbeIzd",
+  key_secret: "1ERxqrq3f15PnA77lBbtbfOD",
+})
+
 
 const uri =
   "mongodb+srv://riteshprintstudio:sanskar19@print-studio.0ougy.mongodb.net/?retryWrites=true&w=majority&appName=print-studio"

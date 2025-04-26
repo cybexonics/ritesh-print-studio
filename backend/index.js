@@ -154,24 +154,43 @@ app.delete("/products/:id", async (req, res) => {
 
 // CRUD operations for orders
 
-// Create an order
 app.post("/orders", async (req, res) => {
   try {
+    const { totalAmount, ...rest } = req.body
+
+    // 1. Create Razorpay order
+    const razorpayOrder = await razorpayInstance.orders.create({
+      amount: totalAmount * 100, // Convert to paise
+      currency: "INR",
+      receipt: "receipt#" + new Date().getTime(),
+    })
+
+    // 2. Store order in DB with Razorpay order ID
     const order = {
-      ...req.body,
+      ...rest,
+      totalAmount,
+      razorpayOrderId: razorpayOrder.id,
       orderDate: new Date(),
-      status: "Pending", // Default status for new orders
+      status: "Pending",
     }
 
-    await client.connect()
     const db = client.db("print-studio")
     const ordersCollection = db.collection("orders")
     const result = await ordersCollection.insertOne(order)
-    res.status(201).json(result)
+
+    // 3. Return DB order + Razorpay order info to frontend
+    res.status(201).json({
+      orderId: result.insertedId,
+      razorpayOrderId: razorpayOrder.id,
+      razorpayAmount: razorpayOrder.amount,
+      currency: razorpayOrder.currency,
+    })
   } catch (error) {
+    console.error("Error creating order:", error)
     res.status(500).json({ message: "Error creating order", error })
   }
 })
+
 
 // Read all orders
 app.get("/orders", async (req, res) => {

@@ -8,7 +8,7 @@ const ShippingPolicyPage: React.FC = () => {
         <title>Shipping Policy</title>
       </Head>
 
-     <main className="px-4 py-10 pt-15 md:px-10 lg:px-24 max-w-4xl mx-auto text-center">
+     <main className="px-4 py-10 pt-15 mt-10 md:px-10 lg:px-24 max-w-4xl mx-auto text-left">
 
         <h1>🚚 Shipping Policy</h1>
         <p><em>Last Updated: May 17, 2025</em></p>

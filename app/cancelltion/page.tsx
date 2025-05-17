@@ -8,7 +8,7 @@ const CancellationPolicyPage: React.FC = () => {
         <title>Cancellation & Refund Policy</title>
       </Head>
 
-      <main className="px-4 py-10 md:px-10 lg:px-24 max-w-4xl mx-auto text-left">
+      <main className="px-4 py-10 md:px-10 lg:px-24 max-w-4xl mx-auto mt-10 text-left">
         <h1 className="text-center text-2xl font-semibold mb-4">❌ Cancellation & Refund Policy</h1>
         <p><em>Last Updated: May 17, 2025</em></p>
 

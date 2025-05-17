@@ -8,7 +8,7 @@ const TermsAndConditionsPage: React.FC = () => {
         <title>Terms and Conditions</title>
       </Head>
 
-      <main className="px-4 py-10 md:px-10 lg:px-24 max-w-4xl mx-auto text-left">
+      <main className="px-4 py-10 mt-10 md:px-10 lg:px-24 max-w-4xl mx-auto text-left">
         <h1 className="text-center text-2xl font-semibold mb-4">📜 Terms and Conditions</h1>
         <p><em>Last Updated: May 17, 2025</em></p>
 

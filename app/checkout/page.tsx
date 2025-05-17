@@ -209,7 +209,7 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+          <Button type="submit" className="w-full flex-1 bg-black hover:bg-gray-800 text-white py-5 rounded-xl font-medium transition-all duration-200" disabled={isSubmitting}>
             {isSubmitting ? "Processing..." : "Place Order"}
           </Button>
         </div>

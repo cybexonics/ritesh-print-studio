@@ -90,7 +90,7 @@ export default function CartPage() {
             <div className="mt-8 flex justify-between items-center">
               <p className="text-xl font-semibold">Total: ${total.toFixed(2)}</p>
               <Link href="/checkout">
-                <Button size="lg">Proceed to Checkout</Button>
+                <Button size="lg" className="flex-1 bg-black hover:bg-gray-800 text-white py-5 rounded-xl font-medium transition-all duration-200">Proceed to Checkout</Button>
               </Link>
             </div>
           </>

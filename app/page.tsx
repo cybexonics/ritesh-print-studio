@@ -376,14 +376,13 @@ export default function Home() {
           {/* Content Section */}
           <div className="max-w-3xl w-full">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 lg:mb-8 leading-tight">
-              Holi Special Offer! Custom T-Shirts
+              Wedding Sessions Offer! Combo Pack
               <span className="block text-blue-400 mt-2 md:mt-3 text-3xl md:text-4xl lg:text-5xl">
-                at Just ₹199! 🎨✨
+                at Just ₹999! 🎨✨
               </span>
             </h2>
             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-8 lg:mb-10 leading-relaxed">
-              Celebrate the festival of colors with your unique style! Get customized T-shirts and add a personal touch
-              to your Holi celebrations.
+              Celebrate the Session of Wedding with your unique style! Get customized T-shirts, Cups, and Pillow
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8 lg:mb-10">
@@ -391,7 +390,7 @@ export default function Home() {
                 <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-400 flex items-center justify-center text-xs md:text-sm font-bold">
                   ✓
                 </div>
-                <span className="text-gray-300 text-base md:text-lg">Premium Quality Fabric</span>
+                <span className="text-gray-300 text-base md:text-lg">Premium Quality</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-400 flex items-center justify-center text-xs md:text-sm font-bold">
@@ -409,7 +408,7 @@ export default function Home() {
                 <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-400 flex items-center justify-center text-xs md:text-sm font-bold">
                   ✓
                 </div>
-                <span className="text-gray-300 text-base md:text-lg">Perfect for Group & Family Parties</span>
+                <span className="text-gray-300 text-base md:text-lg">Perfect for life Patners</span>
               </div>
             </div>
 
@@ -425,12 +424,12 @@ export default function Home() {
           <div className="flex justify-center md:justify-end mt-8 md:mt-0">
             <div className="relative w-full max-w-[350px] md:max-w-[450px] lg:max-w-[550px] aspect-square rounded-xl overflow-hidden bg-gray-700">
               <img
-                src="https://res.cloudinary.com/dxd3jzvmq/image/upload/v1742136026/pwixgdkloeeiupspg63j.jpg"
+                src="https://res.cloudinary.com/dxd3jzvmq/image/upload/v1747487079/ba9nkxxlntgf0x00cdh9.png"
                 alt="Custom Holi T-Shirt"
                 className="object-cover w-full h-full"
               />
               <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-blue-400 text-white text-base md:text-lg font-bold px-3 py-1 md:px-4 md:py-2 rounded-full">
-                ₹199 Only!
+                ₹999 Only!
               </div>
             </div>
           </div>
@@ -479,14 +478,14 @@ export default function Home() {
               <Truck className="w-8 h-8 text-blue-500 mr-4" />
               <div>
                 <h3 className="font-semibold">Free Shipping</h3>
-                <p className="text-sm text-gray-500">On orders over $100</p>
+                <p className="text-sm text-gray-500">On orders over ₹100</p>
               </div>
             </div>
             <div className="flex items-center justify-center">
               <Tag className="w-8 h-8 text-blue-500 mr-4" />
               <div>
                 <h3 className="font-semibold">Special Discounts</h3>
-                <p className="text-sm text-gray-500">Save up to 70% off</p>
+                <p className="text-sm text-gray-500">Save up to 23% off</p>
               </div>
             </div>
             <div className="flex items-center justify-center">

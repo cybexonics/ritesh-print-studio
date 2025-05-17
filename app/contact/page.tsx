@@ -39,7 +39,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white px-4 py-10 flex flex-col items-center justify-start">
+    <div className="min-h-screen bg-white px-4 py-10 pt-10 flex flex-col items-center justify-start">
       <div className="max-w-xl w-full space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-800">Contact Us</h1>
 

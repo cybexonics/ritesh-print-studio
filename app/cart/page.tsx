@@ -73,7 +73,7 @@ export default function CartPage() {
                   </div>
 
                   <Button
-                    variant="ghost"
+                    variant="default"
                     size="sm"
                     onClick={() =>
                       removeFromCart(item._id, item.color || "", item.size || "")

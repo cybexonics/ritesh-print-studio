@@ -5,7 +5,7 @@ const PrivacyPolicyPage: React.FC = () => {
   return (
     <>
 
-      <main style={{ padding: '2rem', fontFamily: 'Arial, sans-serif', lineHeight: 1.6 }}>
+      <main className="px-4 py-10 pt-15 md:px-10 lg:px-24 max-w-4xl mx-auto text-center">
         <h1>🔒 Privacy Policy</h1>
         <p><em>Last Updated: May 17, 2025</em></p>
 

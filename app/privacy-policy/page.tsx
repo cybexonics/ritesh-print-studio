@@ -6,7 +6,7 @@ const PrivacyPolicyPage: React.FC = () => {
     <>
 
       <main className="px-4 py-10 pt-15 mt-10 md:px-10 lg:px-24 max-w-4xl mx-auto text-left">
-        <h1>🔒 Privacy Policy</h1>
+        <h1 className="text-center text-2xl font-semibold mb-4">🔒 Privacy Policy</h1>
         <p><em>Last Updated: May 17, 2025</em></p>
 
         <section>

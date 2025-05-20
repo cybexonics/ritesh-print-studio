@@ -69,27 +69,20 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     })
   }
 
-  const removeFromCart = (id: string, color?: string, size?: string) => {
-    setCart((prevCart) => {
-      return prevCart.filter(
-        (item) =>
-          item._id !== id || // Match ID
-          (item.color !== color || item.size !== size) // Match Color or Size
-      );
-    });
-  };
   
-  
-
-  const updateQuantity = (id: string, quantity: number, color?: string, size?: string) => {
+  const updateQuantity = (_id: string, quantity: number, color: string, size: string) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item._id === id &&
-        item.color === color &&
-        item.size === size // Only update if all three match
-          ? { ...item, quantity: Math.max(0, quantity) } // Update quantity
+        item._id === _id && item.color === color && item.size === size
+          ? { ...item, quantity: Math.max(quantity, 1) }
           : item
       )
+    );
+  };
+
+  const removeFromCart = (_id: string, color: string, size: string) => {
+    setCart((prevCart) =>
+      prevCart.filter((item) => !(item._id === _id && item.color === color && item.size === size))
     );
   };
   

@@ -10,7 +10,7 @@ import { useCart } from "../components/CartContext";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart } = useCart(); // Access cart data
+  const { cart,clearCart } = useCart(); // Access cart data
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -53,7 +53,7 @@ export default function CheckoutPage() {
       }
   
       const options = {
-        key: "rzp_test_ACwzTcmjQbeIzd", // Replace with your Razorpay key ID
+        key: "rzp_live_nSH9OX6suO8nli", // Replace with your Razorpay key ID
         amount: data.razorpayAmount,
         currency: "INR",
         name: "Print Studio",
@@ -94,6 +94,7 @@ export default function CheckoutPage() {
       alert("Something went wrong during checkout.");
       router.push("/order/failed");
     } finally {
+      clearCart();
       setIsSubmitting(false);
     }
   };

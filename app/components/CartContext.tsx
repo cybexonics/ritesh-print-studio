@@ -18,8 +18,8 @@ type CartItem = {
 type CartContextType = {
   cart: CartItem[]
   addToCart: (item: CartItem) => void
-  removeFromCart: (id: string,color:string,size:string) => void
-  updateQuantity: (id: string,quantity: number, color:string,size:string) => void
+  removeFromCart: (index:number) => void
+  updateQuantity: (index:number,quantity:number) => void
   clearCart: () => void
 }
 
@@ -72,10 +72,18 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
  const updateQuantity = (index: number, quantity: number) => {
   setCart((prevCart) => {
+    if (quantity <= 0) {
+      // Remove item if quantity is zero or less
+      const updatedCart = [...prevCart];
+      updatedCart.splice(index, 1);
+      return updatedCart;
+    }
+
+    // Otherwise, just update quantity
     const updatedCart = [...prevCart];
     updatedCart[index] = {
       ...updatedCart[index],
-      quantity: Math.max(quantity, 1),
+      quantity: quantity,
     };
     return updatedCart;
   });

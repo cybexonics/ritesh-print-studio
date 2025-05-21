@@ -69,24 +69,28 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     })
   }
 
-  
-  const updateQuantity = (_id: string, quantity: number, color: string, size: string) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item._id === _id && item.color === color && item.size === size
-          ? { ...item, quantity: Math.max(quantity, 1) }
-          : item
-      )
-    );
-  };
 
-  const removeFromCart = (_id: string, color: string, size: string) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => !(item._id === _id && item.color === color && item.size === size))
-    );
-  };
-  
-  
+ const updateQuantity = (index: number, quantity: number) => {
+  setCart((prevCart) => {
+    const updatedCart = [...prevCart];
+    updatedCart[index] = {
+      ...updatedCart[index],
+      quantity: Math.max(quantity, 1),
+    };
+    return updatedCart;
+  });
+};
+
+const removeFromCart = (index: number) => {
+  setCart((prevCart) => {
+    const updatedCart = [...prevCart];
+    updatedCart.splice(index, 1);
+    return updatedCart;
+  });
+};
+
+
+
 
   const clearCart = () => {
     setCart([])

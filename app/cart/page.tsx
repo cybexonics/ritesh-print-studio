@@ -30,65 +30,57 @@ export default function CartPage() {
           <>
             <div className="space-y-4">
               {cart.map((item, index) => (
-                <div key={index} className="flex items-center space-x-4 border-b pb-4">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={100}
-                    height={100}
-                    className="rounded-md"
-                  />
-                  <div className="flex-grow flex flex-row">
-                    <h2 className="text-xl font-semibold">{item.name}</h2>
-                    <p className="text-gray-600">${item.price} | Size: {item.size}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() =>
-                        updateQuantity(item._id, item.quantity - 1, item.color || "", item.size || "")
-                      }
-                    >
-                      -
-                    </Button>
-                    <Input
-                      type="number"
-                      min="0"
-                      value={item.quantity}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        updateQuantity(item._id, Number.parseInt(e.target.value), item.color || "", item.size || "")
-                      }
-                      className="w-16 text-center"
-                    />
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() =>
-                        updateQuantity(item._id, item.quantity + 1, item.color || "", item.size || "")
-                      }
-                    >
-                      +
-                    </Button>
-                  </div>
+  <div key={index} className="flex items-center space-x-4 border-b pb-4">
+    <Image
+      src={item.image}
+      alt={item.name}
+      width={100}
+      height={100}
+      className="rounded-md"
+    />
+    <div className="flex-grow flex flex-col">
+      <h2 className="text-xl font-semibold">{item.name}</h2>
+      <p className="text-gray-600">₹ {item.price} | Size: {item.size}</p>
+    </div>
+    <div className="flex items-center space-x-2">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => updateQuantity(index, item.quantity - 1)}
+      >
+        -
+      </Button>
+      <Input
+        type="number"
+        min="0"
+        value={item.quantity}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          updateQuantity(index, Number.parseInt(e.target.value))
+        }
+        className="w-16 text-center"
+      />
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => updateQuantity(index, item.quantity + 1)}
+      >
+        +
+      </Button>
+    </div>
 
-                  <Button
-                    variant="default"
-                    size="sm"
-                    onClick={() =>
-                      removeFromCart(item._id, item.color || "", item.size || "")
-                    }
-                    className="flex items-center justify-center p-2"
-                  >
-                    <Trash2 className="h-5 w-5 text-red-500" />
-                  </Button>
-
-
-                </div>
-              ))}
+    <Button
+      variant="default"
+      size="sm"
+      onClick={() => removeFromCart(index)}
+      className="flex items-center justify-center p-2"
+    >
+      <Trash2 className="h-5 w-5 text-red-500" />
+    </Button>
+  </div>
+))}
             </div>
             <div className="mt-8 flex justify-between items-center">
-              <p className="text-xl font-semibold">Total: ${total.toFixed(2)}</p>
+              <p className="text-xl font-semibold">Total: ₹{total.toFixed(2)}</p>
               <Link href="/checkout">
                 <Button size="lg" className="flex-1 bg-black hover:bg-gray-800 text-white py-5 rounded-xl font-medium transition-all duration-200">Proceed to Checkout</Button>
               </Link>

@@ -160,7 +160,7 @@ app.post("/orders", async (req, res) => {
 
     // 1. Create Razorpay order
     const razorpayOrder = await razorpayInstance.orders.create({
-      amount: totalAmount, // Convert to paise
+      amount: totalAmount * 100, // Convert to paise
       currency: "INR",
       receipt: "receipt#" + new Date().getTime(),
     })

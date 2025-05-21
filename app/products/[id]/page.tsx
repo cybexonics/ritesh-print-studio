@@ -9,6 +9,7 @@ import { useCart } from "@/app/components/CartContext"
 import { RadioGroup, RadioGroupItem } from "@/app/components/ui/radio-group"
 import { Label } from "@/app/components/ui/label"
 import { Heart, ShoppingCart, Check, Upload } from "lucide-react"
+import { useRouter } from "next/navigation";
 
 interface Product {
   _id: string
@@ -24,6 +25,7 @@ interface Product {
 
 export default function ProductPage() {
   const { id } = useParams()
+  const router = useRouter();
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string>("")
@@ -33,6 +35,8 @@ export default function ProductPage() {
   const [customText, setCustomText] = useState("")
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
 
   // Fetch product data
   useEffect(() => {
@@ -74,7 +78,13 @@ export default function ProductPage() {
   const handleAddToCart = () => {
     if (!product) return
     if (!selectedSize) {
-      alert("Please select a size")
+      setMessage("Select Size of Item");
+      setMessageType("error");
+
+      setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 4000);
       return
     }
 
@@ -90,8 +100,15 @@ export default function ProductPage() {
       customText,
       customImage: uploadedImage,
     })
-    alert("Added to cart!")
+
+      setMessage("Item added to cart!");
+      setMessageType("success");
     setTimeout(() => setIsAdding(false), 1000)
+    setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+        router.push("/cart")
+      }, 3000);
   }
 
   if (loading)
@@ -302,6 +319,17 @@ export default function ProductPage() {
                   </span>
                 </Button>
               </div>
+              {message && (
+  <div
+    className={`mt-2 px-4 py-2 rounded-md border text-sm font-medium ${
+      messageType === "success"
+        ? "bg-green-100 border-green-400 text-green-700"
+        : "bg-red-100 border-red-400 text-red-700"
+    }`}
+  >
+    {message}
+  </div>
+)}
             </div>
           </div>
         </div>
@@ -309,4 +337,3 @@ export default function ProductPage() {
     </div>
   )
 }
-

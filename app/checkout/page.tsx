@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -22,6 +22,12 @@ export default function CheckoutPage() {
     zipCode: "",
     additionalNotes: "",
   });
+
+  useEffect(()=>{
+    if(cart.length < 1){
+      router.push("/cart")
+    }
+  },[])
 
   const [isSubmitting, setIsSubmitting] = useState(false); // Loading state
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,53 +60,60 @@ export default function CheckoutPage() {
       console.log(data)
 
       const options = {
-        key: "rzp_live_WxCwqo8euINgsg", // Replace with your Razorpay key ID
-        amount: data.razorpayAmount,
-        currency: "INR",
-        name: "Print Studio",
-        description: "Order Payment",
-        order_id: data.razorpayOrderId,
-        prefill: {
-          name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          contact: formData.phone,
-        },
+  key: data.key, // Razorpay key ID returned from server
+  amount: data.razorpayAmount,
+  currency: "INR",
+  name: "Print Studio",
+  description: "Order Payment",
+  order_id: data.razorpayOrderId,
+  prefill: {
+    name: `${formData.firstName} ${formData.lastName}`,
+    email: formData.email,
+    contact: formData.phone,
+  },
+  handler: async function (response: any) {
+    try {
+      const verifyRes = await fetch("https://ritesh-print-studio-server.vercel.app/verify-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(response),
+      });
+
+      const verifyData = await verifyRes.json();
+
+      if (verifyData.success) {
+        alert("Payment Successful!");
+        clearCart();
+        router.push(`/order/success/${data.razorpayOrderId}`);
+      } else {
+        alert("Payment verification failed.");
+        router.push("/order/failed");
+      }
+    } catch (err) {
+      console.error("Verification error:", err);
+      alert("Payment verification error.");
+      router.push("/order/failed");
+    }
+  },
+  modal: {
     ondismiss: function () {
-      alert("Payment popup closed.");
-    },
-        handler: async function (response: any) {
-          // Verify payment on backend
-          const verifyRes = await fetch("https://ritesh-print-studio-server.vercel.app/verify-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(response),
-          });
+      alert("Payment popup closed or cancelled.");
+      router.push("/order/failed");
+    }
+  },
+  theme: {
+    color: "#3399cc",
+  },
+};
 
-          const verifyData = await verifyRes.json();
+const rzp = new (window as any).Razorpay(options);
+rzp.open(); // Now it opens, but does NOT redirect prematurely
 
-          if (verifyData.success) {
-            alert("Payment Successful!");
-            router.push("/order/success");
-          } else {
-            alert("Payment verification failed.");
-            router.push("/order/failed");
-          }
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-      const rzp = new (window as any).Razorpay(options);
-      console.log(rzp)
-      rzp.open();
-
-      router.push(`/order/success/${data.razorpayOrderId}`);
     } catch (error) {
       console.error("Checkout error:", error);
       alert("Something went wrong during checkout.");
       router.push("/order/failed");
     } finally {
-      clearCart();
       setIsSubmitting(false);
     }
   };

@@ -5,8 +5,8 @@ const path = require("path")
 const Razorpay = require("razorpay")
 
 const razorpayInstance = new Razorpay({
-  key_id: "rzp_test_ACwzTcmjQbeIzd",
-  key_secret: "1ERxqrq3f15PnA77lBbtbfOD",
+  key_id: "rzp_live_WxCwqo8euINgsg",
+  key_secret: "y4PfxAYl21rUmZY5rfj0PaS3",
 })
 
 
@@ -160,7 +160,7 @@ app.post("/orders", async (req, res) => {
 
     // 1. Create Razorpay order
     const razorpayOrder = await razorpayInstance.orders.create({
-      amount: totalAmount * 100, // Convert to paise
+      amount: totalAmount, // Convert to paise
       currency: "INR",
       receipt: "receipt#" + new Date().getTime(),
     })
@@ -195,8 +195,9 @@ app.post("/verify-payment", (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
   const body = razorpay_order_id + "|" + razorpay_payment_id;
+
   const expectedSignature = crypto
-    .createHmac("sha256", "YOUR_KEY_SECRET")
+    .createHmac("sha256", "y4PfxAYl21rUmZY5rfj0PaS3")
     .update(body)
     .digest("hex");
 
@@ -461,4 +462,3 @@ process.on("SIGINT", async () => {
   console.log("MongoDB connection closed")
   process.exit(0)
 })
-

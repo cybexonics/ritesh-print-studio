@@ -27,33 +27,34 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-  
+
     const totalAmount = cart.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
     );
-  
+
     const orderData = {
       ...formData,
       cartItems: cart,
       totalAmount,
     };
-  
+
     try {
       const response = await fetch("https://ritesh-print-studio-server.vercel.app/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData),
       });
-  
+
       const data = await response.json();
-  
+
       if (!data.razorpayOrderId) {
         throw new Error("Razorpay order ID missing in response");
       }
-  
+      console.log(data)
+
       const options = {
-        key: "rzp_live_nSH9OX6suO8nli", // Replace with your Razorpay key ID
+        key: "rzp_live_WxCwqo8euINgsg", // Replace with your Razorpay key ID
         amount: data.razorpayAmount,
         currency: "INR",
         name: "Print Studio",
@@ -64,6 +65,9 @@ export default function CheckoutPage() {
           email: formData.email,
           contact: formData.phone,
         },
+    ondismiss: function () {
+      alert("Payment popup closed.");
+    },
         handler: async function (response: any) {
           // Verify payment on backend
           const verifyRes = await fetch("https://ritesh-print-studio-server.vercel.app/verify-payment", {
@@ -71,12 +75,12 @@ export default function CheckoutPage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(response),
           });
-  
+
           const verifyData = await verifyRes.json();
-  
+
           if (verifyData.success) {
             alert("Payment Successful!");
-            router.push("/order/success/");
+            router.push("/order/success");
           } else {
             alert("Payment verification failed.");
             router.push("/order/failed");
@@ -86,9 +90,11 @@ export default function CheckoutPage() {
           color: "#3399cc",
         },
       };
-  
       const rzp = new (window as any).Razorpay(options);
+      console.log(rzp)
       rzp.open();
+
+      router.push(`/order/success/${data.razorpayOrderId}`);
     } catch (error) {
       console.error("Checkout error:", error);
       alert("Something went wrong during checkout.");

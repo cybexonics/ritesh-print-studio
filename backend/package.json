@@ -5,7 +5,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "authors": {
+  "name": "Sanskar Bandgar",
+  "role": "Backend Developer | Freelancer",
+  "email": "mr.sanskar19@gmail.com"
+},
   "license": "ISC",
   "description": "",
   "dependencies": {

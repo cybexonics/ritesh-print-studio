@@ -11,7 +11,7 @@ const razorpayInstance = new Razorpay({
 
 
 const uri =
-  "mongodb+srv://riteshprintstudio:sanskar19@print-studio.0ougy.mongodb.net/?retryWrites=true&w=majority&appName=print-studio"
+  "mongodb+srv://riteshprintstdio:sanskar19@print-studio.0ougy.mongodb.net/?retryWrites=true&w=majority&appName=print-studio"
 const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
   useNewUrlParser: true,

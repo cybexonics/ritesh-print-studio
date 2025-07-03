@@ -60,10 +60,10 @@ export default function CheckoutPage() {
       console.log(data)
 
       const options = {
-  key: data.key, // Razorpay key ID returned from server
+  key: data.key,
   amount: data.razorpayAmount,
   currency: "INR",
-  name: "Print Studio",
+  name: "Ritesh Print Studio",
   description: "Order Payment",
   order_id: data.razorpayOrderId,
   prefill: {
@@ -80,12 +80,15 @@ export default function CheckoutPage() {
       });
 
       const verifyData = await verifyRes.json();
+      console.log(verifyData)
 
       if (verifyData.success) {
+       rzp.close();
         alert("Payment Successful!");
         clearCart();
         router.push(`/order/success/${data.razorpayOrderId}`);
       } else {
+       rzp.close();
         alert("Payment verification failed.");
         router.push("/order/failed");
       }
@@ -97,6 +100,7 @@ export default function CheckoutPage() {
   },
   modal: {
     ondismiss: function () {
+    rzp.close();
       alert("Payment popup closed or cancelled.");
       router.push("/order/failed");
     }

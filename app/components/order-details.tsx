@@ -66,15 +66,15 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
 <head>
   <title>Invoice</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      padding: 20px; 
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
       margin: 0;
     }
-    .invoice-container { 
-      max-width: 800px; 
-      margin: auto; 
-      border: 1px solid #ddd; 
+    .invoice-container {
+      max-width: 800px;
+      margin: auto;
+      border: 1px solid #ddd;
       padding: 30px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
@@ -96,15 +96,15 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
       font-size: 12px;
       color: #666;
     }
-    .invoice-header { 
+    .invoice-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 30px; 
+      margin-bottom: 30px;
       border-bottom: 1px solid #eee;
       padding-bottom: 20px;
     }
     .invoice-title {
-      font-size: 20px; 
+      font-size: 20px;
       font-weight: bold;
     }
     .invoice-number {
@@ -143,10 +143,10 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
       border-bottom: 1px solid #eee;
       font-size: 14px;
     }
-    .invoice-items img { 
-      max-width: 60px; 
-      max-height: 60px; 
-      border-radius: 5px; 
+    .invoice-items img {
+      max-width: 60px;
+      max-height: 60px;
+      border-radius: 5px;
       margin-right: 10px;
       vertical-align: middle;
     }
@@ -196,7 +196,7 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
       <div class="shop-address">123 Print Avenue, Design District, New York, NY 10001</div>
       <div class="shop-contact">Tel: (555) 123-4567 | Email: info@riteshprint.com | www.riteshprintstudio.com</div>
     </div>
-    
+
     <!-- Invoice Header -->
     <div class="invoice-header">
       <div>
@@ -207,7 +207,7 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
         <div class="invoice-date">Date: ${new Date().toLocaleDateString()}</div>
       </div>
     </div>
-    
+
     <!-- Customer Information -->
     <div class="customer-info">
       <div class="info-label">CUSTOMER INFORMATION:</div>
@@ -217,7 +217,7 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
         <strong>Phone:</strong> ${order?.email}<br>
       </div>
     </div>
-    
+
     <!-- Billing Information -->
     <div class="billing-info">
       <div class="info-label">BILLING/SHIPPING ADDRESS:</div>
@@ -228,7 +228,7 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
         }
       </div>
     </div>
-    
+
     <!-- Invoice Items -->
     <table class="invoice-items">
       <thead>
@@ -266,7 +266,7 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
           .join("")}
       </tbody>
     </table>
-    
+
     <!-- Invoice Summary -->
     <div class="invoice-summary">
       <div class="summary-row total">
@@ -274,15 +274,15 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
         <span>$${order?.totalAmount}</span>
       </div>
     </div>
-    
+
     <!-- Footer -->
     <div class="footer">
       Thank you for your business! If you have any questions about this invoice, please contact us.
     </div>
   </div>
-  
+
   <script>
-    
+
     // Replace template variables with actual data
     document.body.innerHTML = document.body.innerHTML.replace(/\${([^}]*)}/g, function(match, p1) {
       try {
@@ -291,7 +291,7 @@ export default function OrderDetails({ id }: OrderDetailsProps) {
         return '';
       }
     });
-    
+
     // Print and close after a short delay to ensure rendering is complete
     setTimeout(() => {
       window.print();
